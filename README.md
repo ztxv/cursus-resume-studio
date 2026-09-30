@@ -1,83 +1,134 @@
+<div align="center">
+
+![Version](https://img.shields.io/badge/version-v1.0.0-15392e?style=flat-square)
+![Node.js](https://img.shields.io/badge/Node.js-20%2B-43853d?style=flat-square)
+![Local app](https://img.shields.io/badge/runs-on%20your%20computer-59c7f5?style=flat-square)
+
 # Cursus
 
-**A personal resume studio for turning an existing resume into a focused draft for a specific role.** Paste your experience and a job description, review the result, then export it as a PDF or Word document.
+![Cursus resume studio with empty input fields and preview](assets/cursus-preview.png)
 
-Built by [@ztxv](https://github.com/ztxv) as a local-first portfolio project. Cursus keeps the editing flow simple and asks the model to work only with experience you provide.
+### Your experience. Your next chapter.
 
-## What it does
+Cursus turns an existing resume and a job description into a focused draft you can review and export. It helps bring relevant experience forward without asking the model to invent qualifications.
 
-- Tailors a resume to a pasted job description using the OpenAI Responses API and a strict JSON schema.
-- Shows the result in a live document preview, with PDF and DOCX exports.
-- Saves your draft, selected model, appearance, and API key in your browser's local storage.
-- Supports light and dark themes, responsive layouts, and a **Cmd/Ctrl + Enter** shortcut.
-- Marks a previous result when you change the inputs or a new generation fails, so you know what the download buttons contain.
+</div>
 
-## Run locally
+## Why Cursus?
 
-You need **Node.js 20+**, npm, and an [OpenAI API key](https://platform.openai.com/api-keys) with access to the model you choose.
+Rewriting a resume for every application takes time, and it is easy to lose the details that make your experience yours. Cursus gives you a simple workspace to compare your background with a role and shape a clearer first draft.
+
+- Paste your master resume and the job description
+- Generate a structured resume with the OpenAI Responses API
+- Preview the result and export it as PDF or DOCX
+- Keep drafts, model choice, and appearance in your browser
+- Switch between light and dark themes on desktop or mobile
+- See when a preview belongs to older inputs after an edit or failed retry
+
+## Quick start
+
+You need Node.js **20 or newer**, npm, and an [OpenAI API key](https://platform.openai.com/api-keys).
 
 ```bash
-git clone https://github.com/ztxv/cursus.git
-cd cursus
+git clone https://github.com/ztxv/cursus-resume-studio.git
+cd cursus-resume-studio
 npm install
 npm start
 ```
 
-Open **http://localhost:3000**. To use another port, run `PORT=3001 npm start`. For automatic server restarts while developing, use `npm run dev`.
+Open [http://localhost:3000](http://localhost:3000). In **Settings**, save your key and choose GPT-5 mini, GPT-5, or a custom GPT model ID available to your API project. Paste your resume and a job description, then select **Tailor my resume**. You can also use **Cmd/Ctrl + Enter**.
 
-1. Open **Settings** and enter your API key. Choose GPT-5 mini, GPT-5, or a custom GPT model ID available to your API project.
-2. Paste your own master resume and the job description. Both inputs save in this browser.
-3. Select **Tailor my resume**, review the preview for accuracy, and download a PDF or DOCX.
-
-The app starts with an empty resume field. No personal resume or API key is included in the repository. OpenAI API usage may incur charges on your account.
+> [!IMPORTANT]
+> Cursus starts with an empty resume field. Your master resume and API key are not included in this repository. The key and drafts are saved unencrypted in this browser's local storage, so use a trusted device. OpenAI API usage may incur charges.
 
 ## How it works
 
 ```text
-Browser editor → local Express server → OpenAI Responses API
-       ↑                 ↓
-       └── structured resume + preview ──→ PDF / DOCX export
+Master resume + job description
+              ↓
+       Local Express API
+              ↓
+      OpenAI Responses API
+              ↓
+    Validated resume data
+              ↓
+    Preview + PDF / DOCX
 ```
 
-The browser sends your resume and job description to the local Express server when you generate a draft. The server forwards them to OpenAI, requests structured output, validates the returned shape, and builds the preview. Exports are created locally from that returned resume data: Puppeteer renders the PDF and `docx` builds the Word file.
+The server requests a strict JSON shape, validates the response, and builds the preview. It creates PDF files with Puppeteer and Word files with `docx`. The prompt tells the model to preserve your facts and use only supported job keywords. **Review every generated line before sending it**; AI output can still be wrong.
 
-The prompt instructs the model to preserve factual details and avoid inventing qualifications. **Review every generated line before using it**; AI output can still be inaccurate.
+## Features
 
-## Privacy and scope
+### Tailoring workspace
 
-- The API key, master resume, and job description are stored in your browser's **unencrypted local storage** on the device you use. Use a trusted browser profile, especially on a shared computer.
-- The key is sent to the local server in an authorization header for generation, then forwarded to OpenAI. The server does not save the key or your input drafts to disk. Generation requests set `store: false`.
-- The server listens on `127.0.0.1`, so this setup is intended for personal use on your own machine. Public hosting would require an authentication and security review.
-- `.env` files, local output, and common resume export formats are ignored by Git. Keep personal source documents in `private/` or `resumes/` if you store them in this folder. Review `git status` before any public push.
+- Browser-saved resume and job description drafts
+- GPT-5 mini, GPT-5, and custom GPT model ID selection
+- Word counts, keyboard shortcut, and responsive layout
+- Clear status when a previous result no longer matches the inputs
 
-## Tech stack
+### Document output
 
-| Part | Tools |
+- Live resume preview
+- PDF export in US Letter format
+- Editable DOCX export
+- Export buttons remain available for the last successful result after a failed retry
+
+## Technology
+
+| Layer | Technology |
 | --- | --- |
-| Server and API | Node.js, Express, OpenAI Responses API |
+| Server | Node.js, Express |
+| AI | OpenAI Responses API with strict structured output |
 | Interface | HTML, CSS, JavaScript, Shoelace, Lucide, Motion |
-| Documents | Puppeteer (PDF), `docx` (Word) |
-| Checks | Node.js built-in test runner |
+| Exports | Puppeteer, `docx` |
+| Tests | Node.js built-in test runner |
 
-UI dependencies are served from installed packages, so the interface does not rely on a third-party asset CDN. PDF export uses an installed Chrome/Chromium on macOS when available, otherwise Puppeteer's browser installation.
+Interface dependencies are served from installed packages. PDF export uses Chrome or Chromium on the machine, including Puppeteer's installed browser when available.
 
-## Test
+## Commands
 
 ```bash
-npm test
+npm start        # Run on localhost:3000
+npm run dev      # Run with automatic server restarts
+npm test         # Run the automated tests
+PORT=3001 npm start  # Use another port
 ```
 
-The tests mock OpenAI requests and cover response validation, API errors, export formatting, and the state of the preview after edits or failed attempts. They do not need a real API key.
+Tests mock OpenAI requests; they do not need an API key or incur usage.
 
 ## Project structure
 
 ```text
-lib/openai.js      OpenAI request, response schema, and validation
-public/            Interface, styles, and browser interactions
-server.js          Local API, preview HTML, and document exports
-test/              Automated tests
+assets/           README screenshot
+lib/openai.js     OpenAI request, schema, and response validation
+public/           Interface, styles, and browser behavior
+server.js         Local API, preview markup, and document exports
+test/             API, export, and interface-state tests
 ```
+
+## Privacy and security
+
+- Your API key, resume draft, and job description live in browser `localStorage`, unencrypted.
+- When you generate a draft, the browser sends the key to the local server, which forwards it to OpenAI. The server does not persist the key or drafts to disk.
+- OpenAI generation requests use `store: false`.
+- The server binds to `127.0.0.1` for personal use on your computer. Public hosting would require authentication and a security review.
+- `.env` files, generated output, and common resume document formats are ignored by Git. Review `git status` before publishing changes.
+
+## Current limitations
+
+- No cloud sync or accounts; drafts stay in the current browser.
+- A valid OpenAI API key is required to generate a resume.
+- Generated results are not restored after a page reload; export them before leaving.
+- AI may omit or misstate details, so the final document needs your review.
+
+## Contributing
+
+Focused improvements are welcome. Fork the repository, make your change, run `npm test`, and open a pull request explaining what changed.
 
 ---
 
-Made by [@ztxv](https://github.com/ztxv).
+<div align="center">
+
+**Cursus v1.0.0** · Built by [ztxv](https://github.com/ztxv)
+
+</div>

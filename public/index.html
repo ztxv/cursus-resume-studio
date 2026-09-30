@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Your experience. A sharper story. Tailor your resume to your next opportunity with Cursus and OpenAI.">
+<title>Cursus — Your next chapter</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23c7f3c2'/%3E%3Cpath d='M28 12H18a8 8 0 0 0 0 16h10M22 12l-7 16' fill='none' stroke='%23151c16' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/vendor/shoelace/themes/dark.css"><link rel="stylesheet" href="/styles.css"><script type="module" src="/vendor/shoelace/components/button/button.js"></script><script src="/vendor/lucide.js" defer></script><script src="/vendor/motion.js" defer></script><script src="/app.js" defer></script>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<header class="topbar">
+<a href="/" class="brand" aria-label="Cursus home"><span class="brand-mark"><i data-lucide="file-pen-line"></i></span>Cursus<span class="brand-divider"></span><span class="brand-caption">RESUME STUDIO</span></a>
+<nav aria-label="App controls"><span class="connection" id="connection"><i></i> Add your API key</span><a id="githubLink" class="icon-button code" href="https://github.com/ztxv/cursus" target="_blank" rel="noopener noreferrer" aria-label="Project GitHub repository" title="Project GitHub repository"><i data-lucide="code-xml"></i></a><button class="icon-button" id="themeToggle" aria-label="Switch to light theme" title="Toggle appearance"><i data-lucide="sun"></i></button><button class="icon-button settings-button" id="settingsToggle" aria-label="Open settings" title="Settings"><i data-lucide="settings-2"></i></button></nav>
+</header>
+<main>
+<section class="intro"><div><div class="eyebrow"><span></span> A LITTLE MORE YOU. A LOT MORE RELEVANT.</div><h1>Your experience.<br><span>Your next chapter.</span></h1><p>Turn the resume you have into the one that opens doors.</p></div><div class="intro-note"><span class="intro-symbol" aria-hidden="true"><i data-lucide="sparkles"></i></span><p>A sharper story.<br>Still entirely yours.</p></div></section>
+<div class="workspace">
+<section class="editor glass" aria-label="Resume editor">
+<div class="panel-heading"><h2>Your starting point</h2><span class="small-tag">01 — INPUT</span></div>
+<div class="field-heading"><label for="masterResume"><span class="step">1</span> Master resume</label><button class="text-button" id="toggleMaster" aria-expanded="true" aria-controls="masterSection"><span id="toggleMasterText">Collapse</span><i data-lucide="chevron-up"></i></button></div>
+<div id="masterSection"><p class="field-help">The full picture of what you bring to the table.</p><textarea id="masterResume" maxlength="50000" spellcheck="false" placeholder="Paste your existing resume here…"></textarea><div class="field-meta"><span id="resumeCount">0 words</span><span>Saved on this device <span class="tiny-dot"></span></span></div></div>
+<div class="field-heading job-heading"><label for="jobDesc"><span class="step">2</span> The opportunity</label><button class="text-button" id="clearJd"><i data-lucide="x"></i> Clear</button></div>
+<p class="field-help">Paste the job description you want to make yours.</p><textarea id="jobDesc" maxlength="50000" placeholder="Job title, company, responsibilities…&#10;&#10;The more context you give, the more thoughtful the fit."></textarea>
+<div class="field-meta"><span id="jobCount">0 words</span><span>Include qualifications & responsibilities</span></div>
+<div class="generate-area"><div class="model-row"><span><span class="tiny-dot"></span> Powered by OpenAI</span><button id="modelButton" class="text-button"><span id="modelName">GPT-5 mini</span><i data-lucide="sliders-horizontal"></i></button></div><sl-button id="tailorBtn" class="primary" variant="primary"><span class="button-label"><i data-lucide="sparkles"></i><span id="btnText">Tailor my resume</span></span><i class="button-arrow" data-lucide="arrow-up-right"></i></sl-button><div class="action-hint" id="usageInfo" role="status">Your experience, thoughtfully tailored. <kbd>⌘ / Ctrl ↵</kbd></div></div>
+</section>
+<section class="preview-panel glass" aria-label="Resume preview"><div class="panel-heading"><div class="preview-title"><h2>The next version of you</h2><span class="preview-status" id="previewStatus">PREVIEW</span></div><span class="small-tag">02 — OUTPUT</span></div>
+<div class="preview-canvas" id="previewCanvas"><div id="emptyState" class="empty-state"><div class="empty-illustration" aria-hidden="true"><i data-lucide="file-text"></i><span><i data-lucide="sparkles"></i></span></div><h3>Good things start with your story.</h3><p>Add a job description and let’s bring<br>your most relevant experience forward.</p><div class="empty-tags"><span><i data-lucide="check"></i> ATS-friendly</span><span><i data-lucide="check"></i> True to you</span></div></div>
+<iframe id="previewFrame" title="Tailored resume preview" sandbox hidden></iframe><div id="previewLoader" class="preview-loader" hidden><div class="loader-orbit" aria-hidden="true"><i data-lucide="loader-circle"></i></div><h3>Finding your strongest story</h3><p id="loaderText">Connecting your experience to the opportunity…</p></div></div>
+<div class="export-bar"><div><strong>Ready for your next move.</strong><p id="exportHint" role="status">Your finished resume, in your preferred format.</p></div><div class="export-buttons"><sl-button class="secondary" id="dlPdf" disabled><i data-lucide="download"></i> PDF</sl-button><sl-button class="secondary" id="dlDocx" disabled><i data-lucide="download"></i> DOCX</sl-button></div></div>
+</section>
+</div>
+<footer><span><span class="footer-mark"><i data-lucide="file-pen-line"></i></span> Built for your next chapter.</span><span>Thoughtful tailoring. No invented experience.</span></footer>
+</main>
+<dialog id="settingsDialog" aria-labelledby="settingsTitle"><form id="settingsForm"><div class="dialog-heading"><div><div class="eyebrow">MAKE IT YOURS</div><h2 id="settingsTitle">Studio settings</h2></div><button type="button" class="icon-button" id="closeSettings" aria-label="Close settings"><i data-lucide="x"></i></button></div><p class="dialog-intro">Your key. Your workspace. Ready when you are.</p>
+<label for="apiKey">OpenAI API key</label><div class="secret-field"><input id="apiKey" type="password" placeholder="sk-…" autocomplete="off" spellcheck="false"><button type="button" id="revealKey" class="text-button" aria-label="Show API key">Show</button></div><p class="settings-help">Stored in this browser’s local storage, unencrypted. Sent to this app’s server only when tailoring, then to OpenAI. Use a trusted device.</p><a class="inline-link" href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer">Get an OpenAI API key <i data-lucide="external-link"></i></a>
+<label for="modelSelect">Model</label><select id="modelSelect"><option value="gpt-5-mini">GPT-5 mini</option><option value="gpt-5">GPT-5</option><option value="custom">Custom model ID…</option></select><input id="customModel" placeholder="gpt-…" aria-label="Custom OpenAI model ID" hidden><p class="settings-help">Choose a model available to your OpenAI API project.</p>
+<p id="settingsError" class="settings-error" role="alert"></p><div class="dialog-actions"><button type="button" class="text-button remove" id="removeKey">Remove saved key</button><sl-button type="submit" class="primary" variant="primary"><span>Save settings</span><i data-lucide="arrow-right"></i></sl-button></div></form></dialog>
+<div id="toast" role="status"></div>
+</body></html>

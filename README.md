@@ -96,14 +96,28 @@ PORT=3001 npm start  # Use another port
 
 Tests mock OpenAI requests; they do not need an API key or incur usage.
 
+## Hosted demo
+
+The same interface can be built as a static, server-free demo for hosts like Vercel. It loads a fictional sample resume and job posting, "tailors" it to a pre-written sample result, and turns PDF/DOCX export off. No AI is called, no key is needed, and nothing is saved or sent.
+
+```bash
+npm run build:demo   # static site in demo-dist/
+npm run dev:demo     # build and preview at http://localhost:3100
+```
+
+To deploy on Vercel, import the repository and keep the defaults; `vercel.json` sets the install command (skipping Puppeteer's Chromium download), build command, and output directory. The demo build serves the real `public/` files and the real resume template unchanged, and ships none of the server code. `npm start` remains the real app.
+
 ## Project structure
 
 ```text
 assets/           README screenshot
+demo/             Hosted-demo only: sample data, in-browser API shim, banner styles
 lib/openai.js     OpenAI request, schema, and response validation
+lib/resume-html.js  Resume preview and PDF template (shared with the demo)
 public/           Interface, styles, and browser behavior
-server.js         Local API, preview markup, and document exports
-test/             API, export, and interface-state tests
+scripts/          Static demo build
+server.js         Local API and document exports
+test/             API, export, demo, and interface-state tests
 ```
 
 ## Privacy and security

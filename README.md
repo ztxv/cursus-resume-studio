@@ -1,5 +1,6 @@
 <div align="center">
 
+[![Live demo](https://img.shields.io/badge/live-demo-c5edaf?style=flat-square&labelColor=15392e)](https://cursus-resume-studio.vercel.app/)
 ![Version](https://img.shields.io/badge/version-v1.0.0-15392e?style=flat-square)
 ![Node.js](https://img.shields.io/badge/Node.js-20%2B-43853d?style=flat-square)
 ![Local app](https://img.shields.io/badge/runs-on%20your%20computer-59c7f5?style=flat-square)
@@ -11,6 +12,8 @@
 ### Your experience. Your next chapter.
 
 Cursus turns an existing resume and a job description into a focused draft you can review and export. It helps bring relevant experience forward without asking the model to invent qualifications.
+
+**[Try the live demo →](https://cursus-resume-studio.vercel.app/)** · [Run it locally](#quick-start)
 
 </div>
 
@@ -97,6 +100,8 @@ PORT=3001 npm start  # Use another port
 Tests mock OpenAI requests; they do not need an API key or incur usage.
 
 ## Hosted demo
+
+**Live at [cursus-resume-studio.vercel.app](https://cursus-resume-studio.vercel.app/).** Click around freely: it is a demo, so nothing is generated, saved, or sent. To get the real app, [run it locally](#quick-start).
 
 The same interface can be built as a static, server-free demo for hosts like Vercel. It loads a fictional sample resume and job posting, "tailors" it to a pre-written sample result, and turns PDF/DOCX export off. No AI is called, no key is needed, and nothing is saved or sent.
 

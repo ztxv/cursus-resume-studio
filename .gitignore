@@ -4,6 +4,7 @@ node_modules/
 !.env.example
 .DS_Store
 output/
+demo-dist/
 .playwright-cli/
 
 # Personal inputs and generated resumes

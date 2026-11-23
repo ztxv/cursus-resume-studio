@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "build:demo": "node scripts/build-demo.js",
+    "dev:demo": "node scripts/build-demo.js && npx --yes serve demo-dist -l 3100",
     "test": "node --test"
   },
   "dependencies": {
